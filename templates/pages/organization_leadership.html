@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb">Организация</p>
+            <h1 class="page-hero__title">{{ page.title }}</h1>
+            {% if page.lead %}
+                <p class="page-hero__lead">{{ page.lead }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="row">
+        <div class="column large-12">
+            <div class="leaders-grid">
+                {% for leader in leaders %}
+                <article class="leader-card">
+                    <div class="leader-card__photo">
+                        {% if leader.photo %}
+                            <img src="{{ leader.photo.url }}" alt="{{ leader.name }}">
+                        {% else %}
+                            <div class="leader-card__placeholder">Фото</div>
+                        {% endif %}
+                    </div>
+                    <div class="leader-card__body">
+                        <h3 class="leader-card__name">{{ leader.name }}</h3>
+                        <p class="leader-card__role">{{ leader.position }}</p>
+                        {% if leader.bio %}
+                            <div class="leader-card__bio">{{ leader.bio|safe }}</div>
+                        {% endif %}
+                    </div>
+                </article>
+                {% empty %}
+                <p>Добавьте руководителей в админке.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

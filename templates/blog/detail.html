@@ -2,37 +2,31 @@
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 
-<section class="s-content s-content--no-top-padding">
-
+<section class="page-hero page-hero--compact">
     <div class="row">
-        <div class="column large-12">
-
-            <article class="s-content__entry">
-
-                <div class="s-content__entry-header">
-                    <h1 class="s-content__title">{{ post.title }}</h1>
-                    {% if post.published_at %}
-                        <p class="s-content__date">{{ post.published_at|date:"d.m.Y" }}</p>
-                    {% endif %}
-                </div>
-
-                {% if post.cover %}
-                <div class="s-content__media">
-                    <img src="{{ post.cover.url }}" alt="{{ post.title }}">
-                </div>
-                {% endif %}
-
-                <div class="s-content__primary">
-                    <div class="s-content__page-content">
-                        {{ post.content|safe }}
-                    </div>
-                </div>
-
-            </article>
-
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb"><a href="{% url 'blog:index' %}">Новости</a></p>
+            <h1 class="page-hero__title">{{ post.title }}</h1>
+            {% if post.published_at %}
+                <p class="page-hero__lead">{{ post.published_at|date:"d.m.Y" }}</p>
+            {% endif %}
         </div>
     </div>
+</section>
 
+<section class="section">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            {% if post.cover %}
+            <div class="content-media">
+                <img src="{{ post.cover.url }}" alt="{{ post.title }}">
+            </div>
+            {% endif %}
+            <div class="page-content">
+                {{ post.content|safe }}
+            </div>
+        </div>
+    </div>
 </section>
 
 {% endblock %}

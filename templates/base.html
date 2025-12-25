@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="ru">
+<head>
+
+    <meta charset="utf-8">
+    <title>{% block title %}{{ site.site_title|default:"МВС СТ" }}{% endblock %}</title>
+    <meta name="description" content="{{ site.seo_description|default:'' }}">
+    <meta name="author" content="">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/css/brand.css' %}">
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'theme/favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'theme/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'theme/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'theme/favicons/site.webmanifest' %}">
+
+    <!-- IMPORTANT: modernizr + fontawesome как в оригинале -->
+    <script src="{% static 'theme/js/modernizr.js' %}"></script>
+    <script defer src="{% static 'theme/js/fontawesome/all.min.js' %}"></script>
+
+</head>
+
+<body id="top">
+
+    <!-- preloader -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- header -->
+    <header class="s-header">
+
+        <div class="header__logo">
+            <a href="{% url 'home' %}" class="brand-logo">
+                <img src="{% static 'theme/images/logo.svg' %}" alt="МВССТ">
+                <span class="brand-text">
+                    АНО «МосводостокСтройТрест»
+                </span>
+            </a>
+        </div>
+
+
+        <div class="row s-header__navigation">
+
+            <nav class="s-header__nav-wrap">
+
+                <h3 class="s-header__nav-heading h6">Навигация</h3>
+
+                <ul class="s-header__nav">
+                    <li><a href="{% url 'core:home' %}" title="">Главная</a></li>
+
+                    <li class="has-children">
+                        <a href="#0" title="">Блог</a>
+                        <ul class="sub-menu">
+                            <li><a href="{% url 'blog:index' %}">Все посты</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="{% url 'core:about' %}" title="">О нас</a></li>
+                    <li><a href="{% url 'core:contact' %}" title="">Контакты</a></li>
+                </ul>
+
+                <a href="#0" title="Close Menu" class="s-header__overlay-close close-mobile-menu">Close</a>
+
+            </nav>
+
+        </div>
+
+        <a class="s-header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+        <div class="s-header__search">
+
+            <form role="search" method="get" class="s-header__search-form" action="{% url 'blog:index' %}">
+                <label>
+                    <span class="hide-content">Поиск:</span>
+                    <input type="search" class="s-header__search-field" placeholder="Поиск..." value="" name="q" title="Search for:" autocomplete="off">
+                </label>
+                <input type="submit" class="s-header__search-submit" value="Search">
+            </form>
+
+            <a href="#0" title="Close Search" class="s-header__overlay-close">Close</a>
+
+        </div>
+
+        <a class="s-header__search-trigger" href="#0">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+            </svg>
+            <span>Search</span>
+        </a>
+
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <!-- footer -->
+    <footer class="s-footer">
+
+        <div class="s-footer__main">
+
+            <div class="row">
+
+                <div class="column large-4 medium-6 tab-12 s-footer__info">
+
+                    <h5>{{ site.organization_name|default:"МВС СТ" }}</h5>
+
+                    <p>
+                        {{ site.tagline|default:"" }}
+                    </p>
+
+                </div>
+
+                <div class="column large-2 medium-3 tab-6 s-footer__site-links">
+
+                    <h5>Разделы</h5>
+
+                    <ul class="link-list">
+                        <li><a href="{% url 'core:home' %}">Главная</a></li>
+                        <li><a href="{% url 'blog:index' %}">Блог</a></li>
+                        <li><a href="{% url 'core:about' %}">О нас</a></li>
+                        <li><a href="{% url 'core:contact' %}">Контакты</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="column large-2 medium-3 tab-6 s-footer__social-links">
+
+                    <h5>Соцсети</h5>
+
+                    <ul class="link-list">
+                        {% if site.vk %}<li><a href="{{ site.vk }}" target="_blank" rel="noopener">VK</a></li>{% endif %}
+                        {% if site.telegram %}<li><a href="{{ site.telegram }}" target="_blank" rel="noopener">Telegram</a></li>{% endif %}
+                        {% if site.youtube %}<li><a href="{{ site.youtube }}" target="_blank" rel="noopener">YouTube</a></li>{% endif %}
+                    </ul>
+
+                </div>
+
+                <div class="column large-4 medium-12 s-footer__subscribe">
+
+                    <h5>Контакты</h5>
+
+                    <p>
+                        {% if site.phone %}<div>{{ site.phone }}</div>{% endif %}
+                        {% if site.email %}<div>{{ site.email }}</div>{% endif %}
+                        {% if site.address %}<div>{{ site.address }}</div>{% endif %}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="column">
+                    <div class="ss-copyright">
+                        <span>© {{ site.organization_name|default:"МВС СТ" }} {% now "Y" %}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ss-go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4l-8 8h6v8h4v-8h6z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- Java Script (ПОРЯДОК КАК В ОРИГИНАЛЕ — иначе анимации пропадут) -->
+    <script src="{% static 'theme/js/jquery-3.5.0.min.js' %}"></script>
+    <script src="{% static 'theme/js/plugins.js' %}"></script>
+    <script src="{% static 'theme/js/main.js' %}"></script>
+
+</body>
+</html>

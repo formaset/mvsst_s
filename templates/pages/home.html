@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ site.site_title|default:"Главная" }}{% endblock %}
+{% block content %}
+
+<section class="s-content">
+
+    <div class="row">
+        <div class="column large-12">
+
+            <div class="s-content__entry-header">
+                <h1 class="s-content__title">
+                    {{ site.organization_name|default:"МВС СТ" }}
+                </h1>
+                {% if site.tagline %}
+                    <p class="lead">{{ site.tagline }}</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column large-12">
+
+            <div class="masonry">
+                <div class="bricks-wrapper h-group">
+                    <div class="grid-sizer"></div>
+
+                    {% for post in latest_posts %}
+                    <article class="brick entry" data-aos="fade-up">
+
+                    <div class="entry__thumb">
+                        <a href="{{ post.get_absolute_url }}" class="thumb-link">
+                        {% if post.cover %}
+                            <img src="{{ post.cover.url }}" alt="{{ post.title }}">
+                        {% else %}
+                            <img src="{% static 'theme/images/sample-1050.jpg' %}" alt="{{ post.title }}">
+                        {% endif %}
+                        </a>
+                    </div>
+
+                    <div class="entry__text">
+                        <div class="entry__header">
+                        <h1 class="entry__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+                        <div class="entry__meta">
+                            {% if post.published_at %}
+                            <span class="entry__meta-date">{{ post.published_at|date:"d.m.Y" }}</span>
+                            {% endif %}
+                        </div>
+                        </div>
+
+                        {% if post.excerpt %}
+                        <div class="entry__excerpt">
+                            <p>{{ post.excerpt|striptags|truncatechars:160 }}</p>
+                        </div>
+                        {% endif %}
+
+                        <a class="entry__more-link" href="{{ post.get_absolute_url }}">читать</a>
+                    </div>
+
+                    </article>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

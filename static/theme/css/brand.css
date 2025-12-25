@@ -1,0 +1,117 @@
+:root{
+  /* Цвета брендбука */
+  --brand-royal-blue: #002F6C;
+  --brand-sky-blue:   #9BCBEB;
+
+  --brand-orange: #FF8200;
+  --brand-green:  #44883E;
+  --brand-red:    #C8102E;
+
+  /* Шрифты брендбука */
+  --font-heading: "Unbounded", sans-serif;
+  --font-body:    "Montserrat", sans-serif;
+}
+
+/* Если шрифты подключишь файлами — добавим @font-face следующим шагом.
+   Пока оставляем как есть, чтобы ничего не ломать. */
+
+h1,h2,h3,h4,h5,.s-header__nav a,.entry__title a {
+  font-family: var(--font-heading);
+}
+
+body, p, li, .entry__excerpt, .s-content__primary {
+  font-family: var(--font-body);
+}
+
+a { color: var(--brand-royal-blue); }
+a:hover { color: var(--brand-orange); }
+
+.btn, button, input[type="submit"]{
+  background: var(--brand-royal-blue);
+  border-color: var(--brand-royal-blue);
+}
+
+.btn:hover, button:hover, input[type="submit"]:hover{
+  filter: brightness(0.95);
+}
+
+/* Легкие акценты */
+.entry__meta-date { color: var(--brand-royal-blue); }
+
+/* Нормализуем логотип в шапке */
+.s-header__logo img{
+  height: 34px;     /* можно 40px если нужно крупнее */
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Чуть выровнять по центру по высоте */
+.s-header__logo{
+  display: flex;
+  align-items: center;
+}
+
+:root{
+  --mvsst-blue: #002F6C;
+  --mvsst-sky:  #9BCBEB;
+  --mvsst-red:  #C8102E;
+  --mvsst-green:#44883E;
+  --mvsst-orange:#FF8200;
+}
+
+/* Типографика */
+body{
+  font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+h1,h2,h3,h4,h5,h6,
+.s-content__title,
+.s-hero__slide-title{
+  font-family: "Unbounded", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+/* Фирменные акценты */
+a{ color: var(--mvsst-blue); }
+a:hover{ color: var(--mvsst-red); }
+
+/* Шапка как в демо — темнее и контрастнее */
+.s-header{
+  background: var(--mvsst-blue);
+}
+.s-header a,
+.s-header .s-header__nav a{
+  color:#fff;
+}
+.s-header a:hover{
+  color: var(--mvsst-sky);
+}
+
+/* Логотип (чтобы не “ломался”) */
+.s-header__logo img{
+  height: 34px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  display:block;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+}
+
+.brand-logo img {
+    height: 48px;
+    width: auto;
+}
+
+.brand-text {
+    font-family: var(--brand-font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--brand-royal-blue);
+    line-height: 1.2;
+}

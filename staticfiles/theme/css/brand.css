@@ -1,0 +1,39 @@
+:root{
+  /* Цвета брендбука */
+  --brand-royal-blue: #002F6C;
+  --brand-sky-blue:   #9BCBEB;
+
+  --brand-orange: #FF8200;
+  --brand-green:  #44883E;
+  --brand-red:    #C8102E;
+
+  /* Шрифты брендбука */
+  --font-heading: "Unbounded", sans-serif;
+  --font-body:    "Montserrat", sans-serif;
+}
+
+/* Если шрифты подключишь файлами — добавим @font-face следующим шагом.
+   Пока оставляем как есть, чтобы ничего не ломать. */
+
+h1,h2,h3,h4,h5,.s-header__nav a,.entry__title a {
+  font-family: var(--font-heading);
+}
+
+body, p, li, .entry__excerpt, .s-content__primary {
+  font-family: var(--font-body);
+}
+
+a { color: var(--brand-royal-blue); }
+a:hover { color: var(--brand-orange); }
+
+.btn, button, input[type="submit"]{
+  background: var(--brand-royal-blue);
+  border-color: var(--brand-royal-blue);
+}
+
+.btn:hover, button:hover, input[type="submit"]:hover{
+  filter: brightness(0.95);
+}
+
+/* Легкие акценты */
+.entry__meta-date { color: var(--brand-royal-blue); }

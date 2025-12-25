@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb">Организация</p>
+            <h1 class="page-hero__title">{{ page.title }}</h1>
+            {% if page.lead %}
+                <p class="page-hero__lead">{{ page.lead }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <div class="page-content">
+                {{ page.body|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--light">
+    <div class="row">
+        <div class="column large-12">
+            <div class="performance-list">
+                {% for item in items %}
+                <article class="performance-card">
+                    <div class="performance-card__media">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                        {% else %}
+                            <div class="performance-card__placeholder">Документ</div>
+                        {% endif %}
+                    </div>
+                    <div class="performance-card__content">
+                        <h3 class="performance-card__title">{{ item.title }}</h3>
+                        {% if item.date %}
+                            <time class="performance-card__date" datetime="{{ item.date|date:'Y-m-d' }}">
+                                {{ item.date|date:"d.m.Y" }}
+                            </time>
+                        {% endif %}
+                        {% if item.description %}
+                            <p class="performance-card__description">{{ item.description }}</p>
+                        {% endif %}
+                    </div>
+                </article>
+                {% empty %}
+                <p>Добавьте материалы оценки деятельности в админке.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

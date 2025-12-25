@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb">Карьера</p>
+            <h1 class="page-hero__title">{{ page.title }}</h1>
+            {% if page.lead %}
+                <p class="page-hero__lead">{{ page.lead }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <div class="page-content">
+                {{ page.body|safe }}
+            </div>
+        </div>
+        <div class="column large-4 tab-12">
+            <div class="info-card">
+                <h3>Как попасть в команду</h3>
+                <p>Оставьте заявку или отправьте резюме на корпоративную почту. Мы ответим в ближайшее рабочее время.</p>
+                {% if site.email %}
+                    <p class="info-card__highlight">{{ site.email }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

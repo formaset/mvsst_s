@@ -8,7 +8,7 @@ class BlogIndexView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        return Post.objects.filter(status=Post.Status.PUBLISHED)
+        return Post.objects.filter(status=Post.Status.PUBLISHED).order_by("-published_at", "-created_at")
 
 
 class BlogDetailView(DetailView):
@@ -16,4 +16,4 @@ class BlogDetailView(DetailView):
     context_object_name = "post"
 
     def get_queryset(self):
-        return Post.objects.filter(status=Post.Status.PUBLISHED)
+        return Post.objects.filter(status=Post.Status.PUBLISHED).order_by("-published_at", "-created_at")

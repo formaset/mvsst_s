@@ -1,51 +1,43 @@
 {% extends "base.html" %}
-{% block title %}Контакты{% endblock %}
+{% block title %}{{ site.contacts_title|default:"Контакты" }}{% endblock %}
 {% block content %}
 
-<section class="s-content s-content--no-top-padding">
-
+<section class="page-hero">
     <div class="row">
-        <div class="column large-12">
-
-            <article class="s-content__entry">
-
-                <div class="s-content__entry-header">
-                    <h1 class="s-content__title">Контакты</h1>
-                </div>
-
-                <div class="s-content__primary">
-
-                    <div class="row">
-
-                        <div class="column large-6 tab-12">
-                            <h4>Связаться</h4>
-
-                            {% if site.phone %}<p><strong>Телефон:</strong> {{ site.phone }}</p>{% endif %}
-                            {% if site.email %}<p><strong>Email:</strong> {{ site.email }}</p>{% endif %}
-                            {% if site.address %}<p><strong>Адрес:</strong> {{ site.address }}</p>{% endif %}
-
-                            <h4>Соцсети</h4>
-                            <ul class="link-list">
-                                {% if site.vk %}<li><a href="{{ site.vk }}" target="_blank" rel="noopener">VK</a></li>{% endif %}
-                                {% if site.telegram %}<li><a href="{{ site.telegram }}" target="_blank" rel="noopener">Telegram</a></li>{% endif %}
-                                {% if site.youtube %}<li><a href="{{ site.youtube }}" target="_blank" rel="noopener">YouTube</a></li>{% endif %}
-                            </ul>
-                        </div>
-
-                        <div class="column large-6 tab-12">
-                            <h4>Написать сообщение</h4>
-                            <p>Форму обратной связи подключим следующим шагом (через почту или Telegram-бота).</p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </article>
-
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb">Контакты</p>
+            <h1 class="page-hero__title">{{ site.contacts_title|default:"Контакты" }}</h1>
+            {% if site.contacts_intro %}
+                <p class="page-hero__lead">{{ site.contacts_intro }}</p>
+            {% endif %}
         </div>
     </div>
+</section>
 
+<section class="section">
+    <div class="row contact-grid">
+        <div class="column large-5 tab-12">
+            <div class="info-card">
+                <h3>Как связаться</h3>
+                {% if site.phone %}<p><strong>Телефон:</strong> {{ site.phone }}</p>{% endif %}
+                {% if site.email %}<p><strong>Email:</strong> {{ site.email }}</p>{% endif %}
+                {% if site.address %}<p><strong>Адрес:</strong> {{ site.address }}</p>{% endif %}
+            </div>
+            <div class="info-card">
+                <h3>Приём обращений</h3>
+                <p>Для обращений граждан и организаций используйте официальные каналы связи. Ответим в рабочее время.</p>
+            </div>
+        </div>
+        <div class="column large-7 tab-12">
+            <div class="map-card">
+                {% if site.contacts_map_embed %}
+                    {{ site.contacts_map_embed|safe }}
+                {% else %}
+                    <div class="map-card__placeholder">Здесь можно разместить карту (iframe) из Яндекс/Google.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </section>
 
 {% endblock %}

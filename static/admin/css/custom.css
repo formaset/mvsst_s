@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap");
+
+:root {
+  --brand-blue: #002f6c;
+  --brand-sky: #9bcbeb;
+  --brand-orange: #ff8200;
+  --brand-red: #c8102e;
+}
+
+body,
+#header,
+.module caption,
+.module h2,
+.module h3,
+.module h4 {
+  font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+#header {
+  background: var(--brand-blue);
+  color: #fff;
+  border-bottom: 4px solid var(--brand-sky);
+}
+
+#header a:link,
+#header a:visited {
+  color: #fff;
+}
+
+.admin-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-branding__title {
+  font-family: "Unbounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.admin-branding__subtitle {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input {
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover {
+  background: var(--brand-orange);
+  border-color: var(--brand-orange);
+}
+
+.breadcrumbs {
+  background: #f5f7fb;
+  border-bottom: 1px solid #e1e6f2;
+}
+
+a:link,
+a:visited {
+  color: var(--brand-blue);
+}
+
+a:hover,
+a:focus {
+  color: var(--brand-red);
+}

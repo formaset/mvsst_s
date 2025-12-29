@@ -3,72 +3,114 @@
 {% block title %}{{ site.site_title|default:"Главная" }}{% endblock %}
 {% block content %}
 
-<section class="s-content">
-
-    <div class="row">
-        <div class="column large-12">
-
-            <div class="s-content__entry-header">
-                <h1 class="s-content__title">
-                    {{ site.organization_name|default:"МВС СТ" }}
-                </h1>
-                {% if site.tagline %}
-                    <p class="lead">{{ site.tagline }}</p>
-                {% endif %}
+<section class="hero" {% if site.hero_image %}style="background-image: url('{{ site.hero_image.url }}');"{% endif %}>
+    <div class="hero__overlay"></div>
+    <div class="row hero__content">
+        <div class="column large-7 medium-10 tab-12">
+            {% if site.tagline %}
+                <span class="hero__eyebrow">{{ site.tagline }}</span>
+            {% endif %}
+            <h1 class="hero__title">
+                {{ site.hero_title|default:site.organization_name|default:"АНО «МосводостокСтройТрест»" }}
+            </h1>
+            {% if site.hero_subtitle %}
+                <p class="hero__subtitle">{{ site.hero_subtitle }}</p>
+            {% endif %}
+            <div class="hero__actions">
+                <a class="btn hero__btn" href="{% url 'core:organization_about' %}">Об организации</a>
+                <a class="btn btn--ghost hero__btn" href="{% url 'core:contact' %}">Контакты</a>
             </div>
-
         </div>
     </div>
+</section>
 
+<section class="section section--light">
+    <div class="row">
+        <div class="column large-6 tab-12">
+            <h2 class="section__title">{{ site.home_about_title|default:"Об организации" }}</h2>
+        </div>
+        <div class="column large-6 tab-12">
+            {% if site.home_about_text %}
+                <div class="section__text">{{ site.home_about_text|safe }}</div>
+            {% else %}
+                <p>Добавьте краткое описание организации в админке: Настройки сайта → Главная.</p>
+            {% endif %}
+            <a class="link-arrow" href="{% url 'core:organization_about' %}">Подробнее об организации</a>
+        </div>
+    </div>
+</section>
+
+<section class="section section--facts">
     <div class="row">
         <div class="column large-12">
+            <h2 class="section__title">Ключевые факты</h2>
+        </div>
+    </div>
+    <div class="row facts">
+        {% for fact in key_facts %}
+        <div class="column large-3 medium-6 tab-12">
+            <div class="fact-card">
+                <div class="fact-card__value">{{ fact.value }}</div>
+                <div class="fact-card__title">{{ fact.title }}</div>
+                {% if fact.description %}
+                    <div class="fact-card__description">{{ fact.description }}</div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="column large-12">
+            <p>Добавьте ключевые факты в админке: Ключевые факты.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 
-            <div class="masonry">
-                <div class="bricks-wrapper h-group">
-                    <div class="grid-sizer"></div>
-
-                    {% for post in latest_posts %}
-                    <article class="brick entry" data-aos="fade-up">
-
-                    <div class="entry__thumb">
-                        <a href="{{ post.get_absolute_url }}" class="thumb-link">
+<section class="section section--news">
+    <div class="row">
+        <div class="column large-12">
+            <div class="section__header">
+                <h2 class="section__title">Новости</h2>
+                <a class="btn btn--ghost" href="{% url 'blog:index' %}">Все новости</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column large-12">
+            <div class="news-list">
+                {% for post in latest_posts %}
+                <article class="news-card">
+                    <a class="news-card__media" href="{{ post.get_absolute_url }}">
                         {% if post.cover %}
                             <img src="{{ post.cover.url }}" alt="{{ post.title }}">
+                        {% elif post.video_file %}
+                            <video muted preload="metadata">
+                                <source src="{{ post.video_file.url }}">
+                            </video>
                         {% else %}
                             <img src="{% static 'theme/images/sample-1050.jpg' %}" alt="{{ post.title }}">
                         {% endif %}
-                        </a>
-                    </div>
-
-                    <div class="entry__text">
-                        <div class="entry__header">
-                        <h1 class="entry__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-                        <div class="entry__meta">
-                            {% if post.published_at %}
-                            <span class="entry__meta-date">{{ post.published_at|date:"d.m.Y" }}</span>
-                            {% endif %}
-                        </div>
-                        </div>
-
-                        {% if post.excerpt %}
-                        <div class="entry__excerpt">
-                            <p>{{ post.excerpt|striptags|truncatechars:160 }}</p>
-                        </div>
+                    </a>
+                    <div class="news-card__content">
+                        {% if post.published_at %}
+                            <time class="news-card__date" datetime="{{ post.published_at|date:'Y-m-d' }}">
+                                {{ post.published_at|date:"d.m.Y" }}
+                            </time>
                         {% endif %}
-
-                        <a class="entry__more-link" href="{{ post.get_absolute_url }}">читать</a>
+                        <h3 class="news-card__title">
+                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        </h3>
+                        {% if post.excerpt %}
+                            <p class="news-card__excerpt">{{ post.excerpt|striptags|truncatechars:170 }}</p>
+                        {% endif %}
+                        <a class="link-arrow" href="{{ post.get_absolute_url }}">Читать новость</a>
                     </div>
-
-                    </article>
-                    {% endfor %}
-
-
-                </div>
+                </article>
+                {% empty %}
+                <p>Пока нет опубликованных новостей.</p>
+                {% endfor %}
             </div>
-
         </div>
     </div>
-
 </section>
 
 {% endblock %}

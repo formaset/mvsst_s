@@ -1,77 +1,69 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Блог{% endblock %}
+{% block title %}Новости{% endblock %}
 {% block content %}
 
-<section class="s-content">
+<section class="page-hero">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb">Новости</p>
+            <h1 class="page-hero__title">Новости</h1>
+            <p class="page-hero__lead">Актуальные события и новости организации.</p>
+        </div>
+    </div>
+</section>
 
+<section class="section">
     <div class="row">
         <div class="column large-12">
-            <div class="s-content__entry-header">
-                <h1 class="s-content__title">Блог</h1>
+            <div class="news-list">
+                {% for post in posts %}
+                <article class="news-card">
+                    <a href="{{ post.get_absolute_url }}" class="news-card__media">
+                        {% if post.cover %}
+                            <img src="{{ post.cover.url }}" alt="{{ post.title }}">
+                        {% elif post.video_file %}
+                            <video muted preload="metadata">
+                                <source src="{{ post.video_file.url }}">
+                            </video>
+                        {% else %}
+                            <img src="{% static 'theme/images/sample-1050.jpg' %}" alt="{{ post.title }}">
+                        {% endif %}
+                    </a>
+                    <div class="news-card__content">
+                        {% if post.published_at %}
+                            <time class="news-card__date" datetime="{{ post.published_at|date:'Y-m-d' }}">
+                                {{ post.published_at|date:"d.m.Y" }}
+                            </time>
+                        {% endif %}
+                        <h3 class="news-card__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                        {% if post.excerpt %}
+                            <p class="news-card__excerpt">{{ post.excerpt|default:""|striptags|truncatechars:180 }}</p>
+                        {% endif %}
+                        <a class="link-arrow" href="{{ post.get_absolute_url }}">Читать новость</a>
+                    </div>
+                </article>
+                {% empty %}
+                    <p>Пока нет опубликованных новостей. Создайте запись в админке и установите статус “Опубликовано”.</p>
+                {% endfor %}
             </div>
         </div>
     </div>
+    {% if is_paginated %}
+    <nav class="pgn">
+        <ul>
+            {% if page_obj.has_previous %}
+                <li><a class="pgn__prev" href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
+            {% endif %}
 
-    <div class="row">
-        <div class="column large-12">
+            <li><span class="pgn__num">Стр. {{ page_obj.number }} из {{ paginator.num_pages }}</span></li>
 
-            <div class="masonry">
-                <div class="bricks-wrapper h-group">
-                    <div class="grid-sizer"></div>
-
-                    {% for post in posts %}
-                    <article class="brick entry" data-aos="fade-up">
-                        <div class="entry__thumb">
-                            <a href="{{ post.get_absolute_url }}" class="thumb-link">
-                                {% if post.cover %}
-                                    <img src="{{ post.cover.url }}" alt="{{ post.title }}">
-                                {% else %}
-                                    <img src="{% static 'theme/images/sample-1050.jpg' %}" alt="{{ post.title }}">
-                                {% endif %}
-                            </a>
-                        </div>
-
-                        <div class="entry__text">
-                            <div class="entry__header">
-                                <h1 class="entry__title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-                                {% if post.published_at %}
-                                    <div class="entry__meta">
-                                        <span class="entry__meta-date">{{ post.published_at|date:"d.m.Y" }}</span>
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                            {% if post.excerpt %}
-                                <div class="entry__excerpt"><p>{{ post.excerpt|default:""|striptags|truncatechars:160 }}</p></div>
-                            {% endif %}
-                        </div>
-                    </article>
-                    {% empty %}
-                        <p>Пока нет опубликованных постов. Создай пост в админке и поставь статус “Опубликовано”.</p>
-                    {% endfor %}
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-{% if is_paginated %}
-<nav class="pgn">
-    <ul>
-        {% if page_obj.has_previous %}
-            <li><a class="pgn__prev" href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
-        {% endif %}
-
-        <li><span class="pgn__num">Стр. {{ page_obj.number }} из {{ paginator.num_pages }}</span></li>
-
-        {% if page_obj.has_next %}
-            <li><a class="pgn__next" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-        {% endif %}
-    </ul>
-</nav>
-{% endif %}
-
+            {% if page_obj.has_next %}
+                <li><a class="pgn__next" href="?page={{ page_obj.next_page_number }}">Вперёд</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </section>
 
 {% endblock %}

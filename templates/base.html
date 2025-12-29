@@ -47,10 +47,14 @@
     <header class="s-header">
 
         <div class="header__logo">
-            <a href="{% url 'home' %}" class="brand-logo">
-                <img src="{% static 'theme/images/logo.svg' %}" alt="МВССТ">
+            <a href="{% url 'core:home' %}" class="brand-logo">
+                {% if site.logo %}
+                    <img src="{{ site.logo.url }}" alt="{{ site.organization_name|default:'АНО «МосводостокСтройТрест»' }}">
+                {% else %}
+                    <img src="{% static 'theme/images/logo.svg' %}" alt="АНО «МосводостокСтройТрест»">
+                {% endif %}
                 <span class="brand-text">
-                    АНО «МосводостокСтройТрест»
+                    {{ site.organization_name|default:"АНО «МосводостокСтройТрест»" }}
                 </span>
             </a>
         </div>
@@ -63,16 +67,18 @@
                 <h3 class="s-header__nav-heading h6">Навигация</h3>
 
                 <ul class="s-header__nav">
-                    <li><a href="{% url 'core:home' %}" title="">Главная</a></li>
-
                     <li class="has-children">
-                        <a href="#0" title="">Блог</a>
+                        <a href="{% url 'core:organization_about' %}" title="">Организация</a>
                         <ul class="sub-menu">
-                            <li><a href="{% url 'blog:index' %}">Все посты</a></li>
+                            <li><a href="{% url 'core:organization_about' %}">Об организации</a></li>
+                            <li><a href="{% url 'core:organization_key_facts' %}">Ключевые факты</a></li>
+                            <li><a href="{% url 'core:organization_leadership' %}">Руководство</a></li>
+                            <li><a href="{% url 'core:organization_performance' %}">Оценка деятельности</a></li>
                         </ul>
                     </li>
 
-                    <li><a href="{% url 'core:about' %}" title="">О нас</a></li>
+                    <li><a href="{% url 'blog:index' %}" title="">Новости</a></li>
+                    <li><a class="career-link" href="https://hh.ru/employer/11611956" target="_blank" rel="noopener">Карьера</a></li>
                     <li><a href="{% url 'core:contact' %}" title="">Контакты</a></li>
                 </ul>
 
@@ -83,27 +89,6 @@
         </div>
 
         <a class="s-header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
-
-        <div class="s-header__search">
-
-            <form role="search" method="get" class="s-header__search-form" action="{% url 'blog:index' %}">
-                <label>
-                    <span class="hide-content">Поиск:</span>
-                    <input type="search" class="s-header__search-field" placeholder="Поиск..." value="" name="q" title="Search for:" autocomplete="off">
-                </label>
-                <input type="submit" class="s-header__search-submit" value="Search">
-            </form>
-
-            <a href="#0" title="Close Search" class="s-header__overlay-close">Close</a>
-
-        </div>
-
-        <a class="s-header__search-trigger" href="#0">
-            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
-            </svg>
-            <span>Search</span>
-        </a>
 
     </header>
 
@@ -118,7 +103,7 @@
 
                 <div class="column large-4 medium-6 tab-12 s-footer__info">
 
-                    <h5>{{ site.organization_name|default:"МВС СТ" }}</h5>
+                    <h5>{{ site.organization_name|default:"АНО «МосводостокСтройТрест»" }}</h5>
 
                     <p>
                         {{ site.tagline|default:"" }}
@@ -126,32 +111,23 @@
 
                 </div>
 
-                <div class="column large-2 medium-3 tab-6 s-footer__site-links">
+                <div class="column large-3 medium-6 tab-12 s-footer__site-links">
 
                     <h5>Разделы</h5>
 
                     <ul class="link-list">
-                        <li><a href="{% url 'core:home' %}">Главная</a></li>
-                        <li><a href="{% url 'blog:index' %}">Блог</a></li>
-                        <li><a href="{% url 'core:about' %}">О нас</a></li>
+                        <li><a href="{% url 'core:organization_about' %}">Об организации</a></li>
+                        <li><a href="{% url 'core:organization_key_facts' %}">Ключевые факты</a></li>
+                        <li><a href="{% url 'core:organization_leadership' %}">Руководство</a></li>
+                        <li><a href="{% url 'core:organization_performance' %}">Оценка деятельности</a></li>
+                        <li><a href="{% url 'blog:index' %}">Новости</a></li>
+                        <li><a href="https://hh.ru/employer/11611956" target="_blank" rel="noopener">Карьера</a></li>
                         <li><a href="{% url 'core:contact' %}">Контакты</a></li>
                     </ul>
 
                 </div>
 
-                <div class="column large-2 medium-3 tab-6 s-footer__social-links">
-
-                    <h5>Соцсети</h5>
-
-                    <ul class="link-list">
-                        {% if site.vk %}<li><a href="{{ site.vk }}" target="_blank" rel="noopener">VK</a></li>{% endif %}
-                        {% if site.telegram %}<li><a href="{{ site.telegram }}" target="_blank" rel="noopener">Telegram</a></li>{% endif %}
-                        {% if site.youtube %}<li><a href="{{ site.youtube }}" target="_blank" rel="noopener">YouTube</a></li>{% endif %}
-                    </ul>
-
-                </div>
-
-                <div class="column large-4 medium-12 s-footer__subscribe">
+                <div class="column large-5 medium-6 tab-12 s-footer__subscribe">
 
                     <h5>Контакты</h5>
 
@@ -171,7 +147,7 @@
             <div class="row">
                 <div class="column">
                     <div class="ss-copyright">
-                        <span>© {{ site.organization_name|default:"МВС СТ" }} {% now "Y" %}</span>
+                        <span>{% now "Y" %} © {{ site.organization_name|default:"АНО «МосводостокСтройТрест»" }}</span>
                     </div>
                 </div>
             </div>

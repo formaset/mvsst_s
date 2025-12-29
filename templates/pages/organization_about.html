@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <p class="page-hero__breadcrumb">Организация</p>
+            <h1 class="page-hero__title">{{ page.title }}</h1>
+            {% if page.lead %}
+                <p class="page-hero__lead">{{ page.lead }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="row">
+        <div class="column large-8 tab-12">
+            <div class="page-content">
+                {{ page.body|safe }}
+            </div>
+        </div>
+        <div class="column large-4 tab-12">
+            <div class="info-card">
+                <h3>{{ site.mission_title|default:"Миссия" }}</h3>
+                {{ site.mission_text|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if page.sections.all %}
+<section class="section section--light">
+    <div class="row">
+        <div class="column large-12">
+            <div class="page-sections">
+                {% for section in page.sections.all %}
+                <article class="page-section {% if section.style == 'accent' %}page-section--accent{% endif %}">
+                    <div class="page-section__header">
+                        {% if section.image %}
+                            <div class="page-section__media">
+                                <img src="{{ section.image.url }}" alt="{{ section.title }}">
+                            </div>
+                        {% endif %}
+                        <div class="page-section__content">
+                            <h3>{{ section.title }}</h3>
+                            <div class="page-content">{{ section.body|safe }}</div>
+                            {% if section.button_text and section.button_url %}
+                                <a class="btn" href="{{ section.button_url }}" target="_blank" rel="noopener">
+                                    {{ section.button_text }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

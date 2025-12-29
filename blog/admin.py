@@ -9,3 +9,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ("title", "excerpt", "content")
     prepopulated_fields = {"slug": ("title",)}
     date_hierarchy = "published_at"
+    fieldsets = (
+        (None, {"fields": ("title", "slug", "status", "published_at")}),
+        ("Контент", {"fields": ("excerpt", "cover", "video_file", "content")}),
+    )

@@ -4,8 +4,13 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 class SiteSettings(models.Model):
-    site_title = models.CharField("Название сайта", max_length=200, default="МВС СТ")
-    organization_name = models.CharField("Название организации", max_length=200, blank=True, default="МВС СТ")
+    site_title = models.CharField("Название сайта", max_length=200, default="АНО «МосводостокСтройТрест»")
+    organization_name = models.CharField(
+        "Название организации",
+        max_length=200,
+        blank=True,
+        default="АНО «МосводостокСтройТрест»",
+    )
     tagline = models.CharField("Слоган", max_length=250, blank=True, default="")
 
     logo = models.ImageField("Логотип (PNG/SVG как картинка)", upload_to="site/", blank=True, null=True)
@@ -66,6 +71,29 @@ class ContentPage(models.Model):
         return super().save(*args, **kwargs)
 
 
+class ContentSection(models.Model):
+    class Styles(models.TextChoices):
+        DEFAULT = "default", "По умолчанию"
+        ACCENT = "accent", "Акцентный фон"
+
+    page = models.ForeignKey(ContentPage, on_delete=models.CASCADE, related_name="sections")
+    title = models.CharField("Заголовок", max_length=200)
+    body = CKEditor5Field("Контент", blank=True, default="")
+    image = models.ImageField("Изображение", upload_to="sections/", blank=True, null=True)
+    button_text = models.CharField("Текст кнопки", max_length=120, blank=True, default="")
+    button_url = models.URLField("Ссылка кнопки", blank=True, default="")
+    style = models.CharField("Стиль", max_length=20, choices=Styles.choices, default=Styles.DEFAULT)
+    order = models.PositiveIntegerField("Порядок", default=0)
+
+    class Meta:
+        verbose_name = "Секция страницы"
+        verbose_name_plural = "Секции страницы"
+        ordering = ["order", "id"]
+
+    def __str__(self) -> str:
+        return f"{self.page.title}: {self.title}"
+
+
 class KeyFact(models.Model):
     title = models.CharField("Подпись", max_length=200)
     value = models.CharField("Значение", max_length=120)
@@ -85,7 +113,6 @@ class LeadershipMember(models.Model):
     name = models.CharField("ФИО", max_length=200)
     position = models.CharField("Должность", max_length=200)
     photo = models.ImageField("Фото", upload_to="leadership/", blank=True, null=True)
-    bio = CKEditor5Field("Биография", blank=True, default="")
     order = models.PositiveIntegerField("Порядок", default=0)
 
     class Meta:

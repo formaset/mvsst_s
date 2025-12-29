@@ -95,11 +95,25 @@ input[type="submit"]:hover {
 }
 
 .brand-text {
-  font-size: 20px;
+  font-family: var(--font-body);
+  font-size: 18px;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--brand-blue);
-  max-width: 220px;
+  max-width: 260px;
+}
+
+.career-link {
+  background: rgba(255, 130, 0, 0.12);
+  color: var(--brand-blue);
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-weight: 600;
+}
+
+.career-link:hover {
+  background: rgba(255, 130, 0, 0.2);
+  color: var(--brand-blue);
 }
 
 .hero {
@@ -258,6 +272,14 @@ input[type="submit"]:hover {
   border-radius: 10px;
 }
 
+.news-card__media video {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #000;
+}
+
 .news-card__date {
   font-size: 13px;
   color: #5c677d;
@@ -332,7 +354,7 @@ input[type="submit"]:hover {
 .leader-card__photo img,
 .leader-card__placeholder {
   width: 100%;
-  height: 260px;
+  height: 240px;
   object-fit: cover;
   background: #e9edf5;
   display: flex;
@@ -352,7 +374,6 @@ input[type="submit"]:hover {
 
 .leader-card__role {
   color: #5c677d;
-  margin-bottom: 12px;
 }
 
 .performance-list {
@@ -369,6 +390,10 @@ input[type="submit"]:hover {
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 12px 24px rgba(0, 47, 108, 0.05);
+}
+
+.performance-card__media a {
+  display: block;
 }
 
 .performance-card__media img,
@@ -404,6 +429,13 @@ input[type="submit"]:hover {
   width: 100%;
   border-radius: 14px;
   margin-bottom: 24px;
+}
+
+.content-media video {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  background: #000;
 }
 
 .contact-grid {
@@ -446,6 +478,55 @@ input[type="submit"]:hover {
 .error-page__subtitle {
   font-size: 18px;
   color: #4d586f;
+}
+
+.page-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.page-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 12px 24px rgba(0, 47, 108, 0.06);
+}
+
+.page-section--accent {
+  background: #f2f8fc;
+}
+
+.page-section__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.page-section__media img {
+  width: 220px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.page-section__content {
+  flex: 1;
+  min-width: 240px;
+}
+
+.s-footer__info h5,
+.s-footer__site-links h5,
+.s-footer__subscribe h5 {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.s-footer__main,
+.s-footer__bottom {
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 @media (max-width: 900px) {

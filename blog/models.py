@@ -13,6 +13,7 @@ class Post(models.Model):
     slug = models.SlugField("Slug", max_length=255, unique=True)
     excerpt = models.TextField("Краткое описание", blank=True, default="")
     cover = models.ImageField("Обложка", upload_to="blog/", blank=True, null=True)
+    video_file = models.FileField("Видео (файл)", upload_to="blog/videos/", blank=True, null=True)
 
     content = CKEditor5Field("Текст", blank=True, default="")
 

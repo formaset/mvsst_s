@@ -22,6 +22,10 @@
                     <a href="{{ post.get_absolute_url }}" class="news-card__media">
                         {% if post.cover %}
                             <img src="{{ post.cover.url }}" alt="{{ post.title }}">
+                        {% elif post.video_file %}
+                            <video muted preload="metadata">
+                                <source src="{{ post.video_file.url }}">
+                            </video>
                         {% else %}
                             <img src="{% static 'theme/images/sample-1050.jpg' %}" alt="{{ post.title }}">
                         {% endif %}

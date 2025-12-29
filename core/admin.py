@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ContentPage, KeyFact, LeadershipMember, PerformanceItem, SiteSettings
+from .models import ContentPage, ContentSection, KeyFact, LeadershipMember, PerformanceItem, SiteSettings
 
 admin.site.site_header = "АНО «МосводостокСтройТрест»"
 admin.site.site_title = "Администрирование сайта"
@@ -28,6 +28,16 @@ class ContentPageAdmin(admin.ModelAdmin):
     list_display = ("title", "slug")
     list_filter = ("slug",)
     search_fields = ("title", "lead", "body")
+
+
+class ContentSectionInline(admin.StackedInline):
+    model = ContentSection
+    extra = 0
+    fields = ("title", "body", "image", "button_text", "button_url", "style", "order")
+    ordering = ("order",)
+
+
+ContentPageAdmin.inlines = [ContentSectionInline]
 
 
 @admin.register(KeyFact)

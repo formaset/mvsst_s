@@ -106,7 +106,7 @@ CKEDITOR_5_CONFIGS = {
             "outdent",
             "indent",
             "|",
-            "insertImage",
+            "imageUpload",
             "mediaEmbed",
             "undo",
             "redo",
@@ -121,7 +121,11 @@ CKEDITOR_5_CONFIGS = {
                 "imageStyle:alignFull",
             ]
         },
+        "simpleUpload": {
+            "uploadUrl": "/ckeditor5/image_upload/",
+        },
     }
 }
 
 CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+CKEDITOR_5_UPLOAD_PATH = "uploads/"
